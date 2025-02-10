@@ -45,6 +45,6 @@ The code is an interactive web-based application implemented in [Streamlit](http
 [^1]: LEAL, José Eugenio. AHP-express: A simplified version of the analytical hierarchy process method. MethodsX, 2020, 7: 100748.
 [^2]: SAATY, Roseanna W. The analytic hierarchy process—what it is and how it is used. Mathematical modelling, 1987, 9.3-5: 161-176.
 
-# Acknowledgments and Cotacts
+# Acknowledgments and Contacts
 
 Feel free to use (or modify) the code as long as you mention the repository and who implemented it, for further details contact the following email christian.riccio@unicampania.it
