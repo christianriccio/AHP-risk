@@ -14,11 +14,19 @@ The AHP method was prposed by [^2] in 1980, it requires pairwise comparisons of 
 - For larger *n* this become so much time-consuming and can introduce biases leading to inconsistencies. 
 ### 1.2 AHP Express
 The AHP Express method helps in avoiding to construct a full $` (n \times n) `$ matrix and computing the following eigenvectors. Instead, a **reference item** is chosed and any other item is compared against it. Here is the core idea: 
-- **Pick a reference item R** in each grouop (criteria, sub-criteria, or alternatives).
-- For each other item *i* is asked "*How many times more important (or more risky) is i compared to R?*"
+1. **Pick a reference item R** in each grouop (criteria, sub-criteria, or alternatives).
+2. For each other item *i* is asked "*How many times more important (or more risky) is i compared to R?*"
   Let this ratio be $` r_{i} `$:
   - if the user says "*i* is 3x more important than R", then  $` r_{i} = 3 `$
-  - if the user says "R is 2x more important than *i*", then this implies $ r_{i} = 1/2 $
+  - if the user says "R is 2x more important than *i*", then this implies $` r_{i} = 1/2 `$
+3. The reference has unnormalized wight of $` w_{R} = 1 `$
+4. The unnormalized weight of each item *i* is $` w_{i} = r_{i} `$
+5. The we normalize all the weights so they sum to 1
+6. This normalized weight are used instead of the principal eigenvector typically computed in the standard AHP
+
+This process lead to a number of comparisons of $` n-1 `$ judjements. In suach a case there is no need for consistency ratio checks, in fact inconsistency occurs mainly if evaluations are made between alternatives of seemingly minor importance to the decsionmaker. 
+
+
 ### 1.3 Reference element vs. Reference alternative 
 
 ## 2. Code overview 
