@@ -5,18 +5,18 @@ This particular code implementation is oriented toward a **risk assessment conte
 
 - There are many factors or subfactors to compare, and 
 - We aim to compare alternatives under each factor or subfactor,
-- A simpler approach is preferred rather than building an '$' n \times n '$' comparison matrix at each level.
+- A simpler approach is preferred rather than building an $' n \times n `$ comparison matrix at each level.
 
 ## 1. Theoretical Background
 ### 1.1 "Traditional" AHP
 The AHP method was prposed by [Saaty] in 1980, it requires pairwise comparisons of every element in a set. This brings to:
-- For *n* items, a full pairwise comparison requires $' \frac{n(n-1)}{2} '$ judjements,
-- For largr *n* this become so much time-consuming and can introduce biases leading to inconsistencies. 
+- For *n* items, a full pairwise comparison requires $` \frac{n(n-1)}{2} `$ judjements,
+- For larger *n* this become so much time-consuming and can introduce biases leading to inconsistencies. 
 ### 1.2 AHP Express
 The AHP Express method helps in avoiding to construct a full $' (n \times n) '$ matrix and computing the following eigenvectors. Instead, a **reference item** is chosed and any other item is compared against it. Here is the core idea: 
 - **Pick a reference item R** in each grouop (criteria, sub-criteria, or alternatives).
 - For each other item *i* is asked "*How many times more important (or more risky) is i compared to R?*"
-  Let this ratio be $' r_{i} '$:
+  Let this ratio be $` r_{i} `$:
   - if the user says "*i* is 3x more important than R", then  $' r_{i} = 3 '$ 
 ### 1.3 Reference element vs. Reference alternative 
 
