@@ -5,7 +5,7 @@ This particular code implementation is oriented toward a **risk assessment conte
 
 - There are many factors or subfactors to compare, and 
 - We aim to compare alternatives under each factor or subfactor,
-- A simpler approach is preferred rather than building an $ n\times n $ comparison matrix at each level. 
+- A simpler approach is preferred rather than building an $ n \times n $ comparison matrix at each level. 
 
 
 
