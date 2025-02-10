@@ -35,7 +35,9 @@ The concept of ** reference element** is applied at multiple levels:
 
 
 ## 2. Code overview 
-The code is a web-based application implemented in $${\color{red} Sreamlit}$$
+The code is an interactive web-based application implemented in $${\color{red} [Streamlit](https://streamlit.io)}$$
+
+
 
 
 
