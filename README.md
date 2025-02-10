@@ -15,4 +15,4 @@ This particular code implementation is oriented toward a **risk assessment conte
 
 # References
 
-[1]: LEAL, José Eugenio. AHP-express: A simplified version of the analytical hierarchy process method. MethodsX, 2020, 7: 100748.
+[^1]: LEAL, José Eugenio. AHP-express: A simplified version of the analytical hierarchy process method. MethodsX, 2020, 7: 100748.
