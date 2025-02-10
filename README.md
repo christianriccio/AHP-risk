@@ -37,14 +37,31 @@ The concept of **reference element** is applied at multiple levels:
 ## 2. Code overview 
 The code is an interactive web-based application implemented in [Streamlit](https://streamlit.io).
 
+## 3. 
 
+## 4. How to use this app 
 
+You have to ways to use the app: 
+1. At the following [link] (), or
+2. Following this steps:
+   - Install dependencies:
+     * Python 3.8+
+     * Streamlit
+     * matplotlib
+     * Numpy
+     * graphviz
+```console
+pip install streamlit graphviz matplotlib numpy
+```
 
-## References and Acknowledgments
+### Acknowledgments
+> [!NOTE]
+> Feel free to use (or modify) the code as long as you mention the repository and who implemented it, for further details contact at the following email christian.riccio@unicampania.it
+
+## References 
 
 [^1]: LEAL, José Eugenio. AHP-express: A simplified version of the analytical hierarchy process method. MethodsX, 2020, 7: 100748.
 [^2]: SAATY, Roseanna W. The analytic hierarchy process—what it is and how it is used. Mathematical modelling, 1987, 9.3-5: 161-176.
 
 
-> [!NOTE]
-> Feel free to use (or modify) the code as long as you mention the repository and who implemented it, for further details contact the following email christian.riccio@unicampania.it
+
