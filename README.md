@@ -28,7 +28,7 @@ This process lead to a number of comparisons of $` n-1 `$ judjements. In suach a
 
 
 ### 1.3 Reference element vs. Reference alternative 
-The concept of ** reference element** is applied at multiple levels: 
+The concept of **reference element** is applied at multiple levels: 
 - Top-level factors: one factor is chosed as reference factor and all the other factors are compared to it 
 - Subfactors: for each factor, one subfactor is picked as reference and all the other subfactors are compared to it
 - Alternatives: for each subfactor (or factor, if no subfactor exsist), one alternative is picked as reference and the other alternative(s) is compared to it.
