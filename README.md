@@ -46,5 +46,5 @@ The code is an interactive web-based application implemented in [Streamlit](http
 [^2]: SAATY, Roseanna W. The analytic hierarchy process—what it is and how it is used. Mathematical modelling, 1987, 9.3-5: 161-176.
 
 
-[!NOTE]
-Feel free to use (or modify) the code as long as you mention the repository and who implemented it, for further details contact the following email christian.riccio@unicampania.it
+> [!NOTE]
+> Feel free to use (or modify) the code as long as you mention the repository and who implemented it, for further details contact the following email christian.riccio@unicampania.it
