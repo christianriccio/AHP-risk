@@ -9,7 +9,7 @@ This particular code implementation is oriented toward a **risk assessment conte
 
 ## 1. Theoretical Background
 ### 1.1 "Traditional" AHP
-The AHP method was prposed by [Saaty] in 1980, it requires pairwise comparisons of every element in a set. This brings to:
+The AHP method was prposed by [^2] in 1980, it requires pairwise comparisons of every element in a set. This brings to:
 - For *n* items, a full pairwise comparison requires $` \frac{n(n-1)}{2} `$ judjements,
 - For larger *n* this become so much time-consuming and can introduce biases leading to inconsistencies. 
 ### 1.2 AHP Express
@@ -17,7 +17,8 @@ The AHP Express method helps in avoiding to construct a full $` (n \times n) `$ 
 - **Pick a reference item R** in each grouop (criteria, sub-criteria, or alternatives).
 - For each other item *i* is asked "*How many times more important (or more risky) is i compared to R?*"
   Let this ratio be $` r_{i} `$:
-  - if the user says "*i* is 3x more important than R", then  $` r_{i} = 3 `$ 
+  - if the user says "*i* is 3x more important than R", then  $` r_{i} = 3 `$
+  - if the user says "R is 2x more important than *i*", then this implies $ r_{i} = 1/2 $
 ### 1.3 Reference element vs. Reference alternative 
 
 ## 2. Code overview 
@@ -29,4 +30,4 @@ The AHP Express method helps in avoiding to construct a full $` (n \times n) `$ 
 # References
 
 [^1]: LEAL, José Eugenio. AHP-express: A simplified version of the analytical hierarchy process method. MethodsX, 2020, 7: 100748.
-[Saaty]: SAATY, Roseanna W. The analytic hierarchy process—what it is and how it is used. Mathematical modelling, 1987, 9.3-5: 161-176.
+[^2]: SAATY, Roseanna W. The analytic hierarchy process—what it is and how it is used. Mathematical modelling, 1987, 9.3-5: 161-176.
