@@ -37,22 +37,35 @@ The concept of **reference element** is applied at multiple levels:
 ## 2. Code overview 
 The code is an interactive web-based application implemented in [Streamlit](https://streamlit.io).
 
-## 3. 
+## 3. Results Interpretation
 
 ## 4. How to use this app 
 
 You have to ways to use the app: 
-1. At the following [link] (), or
-2. Following this steps:
-   - Install dependencies:
+-  At the following [link] (), or
+-   Following this steps:
+   1. Install dependencies:
      * Python 3.8+
      * Streamlit
      * matplotlib
      * Numpy
      * graphviz
-```console
-pip install streamlit graphviz matplotlib numpy
-```
+  ```console
+      pip install streamlit graphviz matplotlib numpy
+  ```
+  2. save the script as you wish (in example app.py)
+  3. run the script:
+  ```console
+      streamlit run app.py
+  ```
+  4. Intertact with the app in the browser:
+     * Enter the decision objective
+     * Provide the ALternatives
+     * Provide the Top-level factors
+     * if any, provide subfactors under each factor
+     * Generate the Hieararchy Diagram to quicly inspect the structure of the decsion problem
+     * AHP express will compute the weights at each level (by choosing the corresponding refrence element)
+     * Calculate the Final Scores by clicking the button and get a bar chart
 
 ### Acknowledgments
 > [!NOTE]
