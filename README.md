@@ -38,10 +38,10 @@ The concept of **reference element** is applied at multiple levels:
 The code is an interactive web-based application implemented in [Streamlit](https://streamlit.io).
 ### 2.1 Structure of the code
 + Functions:
-  - `**normalize_weights()**`: this function divides each weight by the total sum so they sum up to 1
-  - **plot_bar_chart()** and **plot_final_scores_bar_chart()**: functions for bar chart plot
-  - **compare_item_against_reference()**: encapsulate the streamlit buttons and sliders and perform the comparison of one item with the chosen reference
-  - **compute_comparison_weights()**: use the comparison function to generate unnormalized weights for an entire list of items, relative to a single reference element
+  - **`normalize_weights()`**: this function divides each weight by the total sum so they sum up to 1
+  - **`plot_bar_chart()`** and **`plot_final_scores_bar_chart()`**: functions for bar chart plot
+  - **`compare_item_against_reference()`**: encapsulate the streamlit buttons and sliders and perform the comparison of one item with the chosen reference
+  - **`compute_comparison_weights()`**: use the comparison function to generate unnormalized weights for an entire list of items, relative to a single reference element
   
 + Main App: main application is dived in steps.
   1. **Step 1**: Define the Overall Objective
@@ -49,10 +49,34 @@ The code is an interactive web-based application implemented in [Streamlit](http
   3. **Step 3**: define the top-level factors
   4. **Step 4**: for each factor, define zero or more subfactors
   5. **Step 5**: generate a hearchy diagram using **Graphviz** module
-  6. **Step 6**: Compare top-level factor using AHP express
+  6. **Step 6**: Compare top-level factors using AHP express
      + a reference factor is picked, set the weight to 1, and compare each other factor to it
-     + normalize and store the results in 
+     + normalize and store the results in `st.session_state["factor_weights"]` in order to not lose ttrack of the weights every time a button is clicked
+  7. **Step 7**: compare this time the subfactor, in the same manner (if there is any)
+     + store the results in `st.session_state[""subfactor_weight_dict]`
+  8. **Step 8**: for each subfactor, compare the alternatives with AHP express
+     + store results in `st.session_state["alt_weights_by_subfactor"]`
+  9. **Step 9**: compute the final scores for each alternative by multiplying the factor weights x subfactor weights x alternatie weights 
+
+## 2.2 Navigating in the code 
+### 2.2.1 Imports and Session State
+```python
+import streamlit as st
+import graphviz
+import matplotlib.pyplot as plt
+import io
+
+if "alt_weights_by_subfactor" not in st.session_state:
+    st.session_state["alt_weights_by_subfactor"] = {}
+if "subfactor_weight_dict" not in st.session_state:
+    st.session_state["subfactor_weight_dict"] = {}
+```
++ I make ssure that `alt_weights_by_subfactor` and `subfactr_weight_dict` are in the `session_state` so the user's entries are stored across different button clicks
   
+### 2.2.2 Functions 
+
+
+### 2.2.3 Main app flow 
 
 ## 3. Results Interpretation
 Each alternative gets a final score, representing a *risk score*; in a risk assessment context a a higher score might mean hogher risk, so one pick the alternative with a lower risk.  
@@ -65,10 +89,9 @@ You have to ways to use the app:
      * Python 3.8+
      * Streamlit
      * matplotlib
-     * Numpy
      * graphviz
   ```console
-      pip install streamlit graphviz matplotlib numpy
+      pip install streamlit graphviz matplotlib
   ```
   2. save the script as you wish (in example app.py)
   3. run the script:
