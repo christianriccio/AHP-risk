@@ -303,13 +303,13 @@ Each alternative gets a final score, representing a *risk score*; in a risk asse
 ## 4. How to use this app 
 
 You have to ways to use the app: 
--  At the following [link] (https://ahp-risk.streamlit.app/), or
+-  At the following [link](https://ahp-risk.streamlit.app/), or
 -   Following this steps:
    1. Install dependencies:
-     * Python 3.8+
-     * Streamlit
-     * matplotlib
-     * graphviz
++ Python 3.8+
++ Streamlit
++ matplotlib
++ graphviz
   ```console
       pip install streamlit graphviz matplotlib
   ```
