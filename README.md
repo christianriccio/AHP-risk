@@ -306,17 +306,17 @@ You have to ways to use the app:
 -  At the following [link](https://ahp-risk.streamlit.app/), or
 -   Following this steps:
    1. Install dependencies:
-+ Python 3.8+
-+ Streamlit
-+ matplotlib
-+ graphviz
+    + Python 3.8+
+    + Streamlit
+    + matplotlib
+    + graphviz
   ```console
-      pip install streamlit graphviz matplotlib
+  pip install streamlit graphviz matplotlib
   ```
   2. save the script as you wish (in example app.py)
   3. run the script:
   ```console
-      streamlit run app.py
+  streamlit run app.py
   ```
   4. Intertact with the app in the browser:
      * Enter the decision objective
