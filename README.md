@@ -141,6 +141,162 @@ def compute_comparison_weights(items, reference, key_prefix, radio_question="Whi
 ```
 - this function, for each group, the reference is picked and unnormalized weights for the rest
 ### 2.2.3 Main app flow 
+```python
+def main():
+    st.title("AHP-based risk assessment using the Express impelementation")
+...
+```
+-------
+#### Step 1&2: Objective and Alternatives
+```python
+# --- Step 1
+    st.header("Step 1: Define Objective")
+    default_objective = "Select the architecture (Blockchain vs. Cloud) with the lowest overall risk."
+    objective = st.text_input("Overall Objective:", value=default_objective)
+
+# --- Step 2
+    st.header("Step 2: Alternatives")
+    st.markdown("We'll compare two main alternatives by default: **Blockchain** and **Cloud**.")
+    alt_text = st.text_area("List alternatives (one per line):", value="Blockchain\nCloud")
+    alternatives_list = [a.strip() for a in alt_text.splitlines() if a.strip()]
+    st.write("**Your alternatives are:**", alternatives_list)
+```
+By default two alternatives are assumed, that are for the purpose of the paper, comparing the risk of "Cloud" vs. "Blockchain" technologies. 
+
+#### Step 3: Top-level factors
+```python
+ default_factors = "Human Factor\nLocal Infrastructure Factor\nPublic Infrastructure Factor"
+    factor_text = st.text_area("Enter top-level factors (one per line):", value=default_factors)
+    factors_list = [f.strip() for f in factor_text.splitlines() if f.strip()]
+```
+- by default 3 main factors are presented, but they caan be changed as well.
+
+#### Step 4: Subfactors
+```python
+ subfactor_dict = {}
+    for factor in factors_list:
+        default_subs = ""
+        if factor.lower().startswith("human"):
+            default_subs = "Data Protection Violation\nData Modification Violation\nHuman Error"
+        ....
+        subs = st.text_area(
+            f"Subfactors for '{factor}': (one per line) - optional",
+            value=default_subs,
+            key=f"subfactors_{factor}"
+        )
+        subfactors = [s.strip() for s in subs.splitlines() if s.strip()]
+        subfactor_dict[factor] = subfactors
+```
+- for each factor, subfactor can be defined, if there is any otherwise None.
+
+#### Step 5: Hierarchy Diagram 
+```python
+    if st.button("Generate Hierarchy Diagram"):
+        dot = graphviz.Digraph()
+        dot.node("Objective", objective)
+        for factor in factors_list:
+            dot.node(factor, factor)
+            dot.edge("Objective", factor)
+            sf_list = subfactor_dict.get(factor, [])
+            if not sf_list:
+                # If no subfactors => direct link factor -> alt
+               
+            else:
+                # factor -> subfactor -> alt
+        st.graphviz_chart(dot)
+```
+- here the hierarchy diagram is drawn
+
+#### Step 6: AHP Express top-level factors 
+
+```python
+if len(factors_list) > 1:
+    ref_factor = st.selectbox("Choose reference factor:", factors_list)
+    factor_weights_raw = compute_comparison_weights(
+        factors_list,
+        ref_factor,
+        key_prefix="factor",
+        radio_question="Which factor is more important/riskier?"
+    )
+    if st.button("Compute Factor Weights"):
+        norm_factor_weights = normalize_weights(factor_weights_raw)
+        st.session_state["factor_weights"] = norm_factor_weights
+        ...
+```
+- one reference factor is picked and gets unnormalized weight = 1.0
+- each other factor is compared to it
+- results are ten normalized and stored
+
+#### Step 7: AHP Express for subfactors 
+
+```python
+for factor in factors_list:
+    sf_list = subfactor_dict.get(factor, [])
+    if len(sf_list) <= 1:
+        # if there is 0 or 1 subfactor, default weights is set
+        subfactor_weight_dict[factor] = ...
+        continue
+
+    # for more than 1 subfactor:
+    ref_sf = st.selectbox(f"Reference subfactor under '{factor}'", sf_list)
+    sf_weights_raw = compute_comparison_weights(...)
+    if st.button(...):
+        norm_sf_weights = normalize_weights(sf_weights_raw)
+        st.session_state["subfactor_weight_dict"][factor] = norm_sf_weights
+        ...
+
+```
+#### Step 8: Compare ALternative for each subfactor
+
+```python
+for factor in factors_list:
+    sf_list = subfactor_dict.get(factor, [])
+    if not sf_list:
+        sf_list = [factor]  # If no subfactors, the factor itself is the "subfactor"
+    for sf in sf_list:
+        #  user pick a reference alternative:
+        ref_alt = st.selectbox(f"Reference alternative for '{sf}'", alternatives_list)
+        alt_weights_raw = compute_comparison_weights(alternatives_list, ref_alt, key_prefix=f"alt_{sf}")
+        if st.button(f"Compute Alt Weights for '{sf}'"):
+            norm_alt_weights = normalize_weights(alt_weights_raw)
+            st.session_state["alt_weights_by_subfactor"][sf] = norm_alt_weights
+            ...
+```
+- reference alternative is picked and the other is compared to it
+- ratio is stored
+- normalization across alternatives is done
+
+#### Step 9: Final scores calculation 
+```python
+if st.button("Calculate Final Scores (AHP Express)"):
+    factor_weights = st.session_state["factor_weights"]
+    subfactor_weight_dict = st.session_state.get("subfactor_weight_dict", {})
+    alt_weights_by_subfactor = st.session_state.get("alt_weights_by_subfactor", {})
+
+    final_scores = {alt: 0.0 for alt in alternatives_list}
+    for factor in factors_list:
+        f_weight = factor_weights.get(factor, 0.0)
+        sf_list = subfactor_dict.get(factor, [])
+        if not sf_list:
+            sub_weights = {factor: 1.0}
+        else:
+            sub_weights = subfactor_weight_dict.get(factor, {})
+            ...
+
+        for sf, sf_weight in sub_weights.items():
+            alt_w = alt_weights_by_subfactor.get(sf, ...)
+            for alt in alternatives_list:
+                final_scores[alt] += f_weight * sf_weight * alt_w[alt]
+
+    
+    st.write("Final Scores for Each Alternative (Lower = Better)")
+    for alt, score in final_scores.items():
+        st.write(f"- {alt}: {score:.4f}")
+    plot_final_scores_bar_chart("Final AHP-Express Scores", final_scores)
+
+```
+- final result is displayed in a bar chart and made available for CSV download
+
 
 ## 3. Results Interpretation
 Each alternative gets a final score, representing a *risk score*; in a risk assessment context a a higher score might mean hogher risk, so one pick the alternative with a lower risk.  
