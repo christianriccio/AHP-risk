@@ -38,8 +38,20 @@ The concept of **reference element** is applied at multiple levels:
 The code is an interactive web-based application implemented in [Streamlit](https://streamlit.io).
 ### 2.1 Structure of the code
 + Functions:
+  - `**normalize_weights()**`: this function divides each weight by the total sum so they sum up to 1
+  - **plot_bar_chart()** and **plot_final_scores_bar_chart()**: functions for bar chart plot
+  - **compare_item_against_reference()**: encapsulate the streamlit buttons and sliders and perform the comparison of one item with the chosen reference
+  - **compute_comparison_weights()**: use the comparison function to generate unnormalized weights for an entire list of items, relative to a single reference element
   
-+ Main App:
++ Main App: main application is dived in steps.
+  1. **Step 1**: Define the Overall Objective
+  2. **Step 2**: define the alternatives
+  3. **Step 3**: define the top-level factors
+  4. **Step 4**: for each factor, define zero or more subfactors
+  5. **Step 5**: generate a hearchy diagram using **Graphviz** module
+  6. **Step 6**: Compare top-level factor using AHP express
+     + a reference factor is picked, set the weight to 1, and compare each other factor to it
+     + normalize and store the results in 
   
 
 ## 3. Results Interpretation
