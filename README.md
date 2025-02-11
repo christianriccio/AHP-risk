@@ -36,9 +36,14 @@ The concept of **reference element** is applied at multiple levels:
 
 ## 2. Code overview 
 The code is an interactive web-based application implemented in [Streamlit](https://streamlit.io).
+### 2.1 Structure of the code
++ Functions:
+  
++ Main App:
+  
 
 ## 3. Results Interpretation
-
+Each alternative gets a final score, representing a *risk score*; in a risk assessment context a a higher score might mean hogher risk, so one pick the alternative with a lower risk.  
 ## 4. How to use this app 
 
 You have to ways to use the app: 
