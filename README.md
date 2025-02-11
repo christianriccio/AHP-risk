@@ -74,8 +74,72 @@ if "subfactor_weight_dict" not in st.session_state:
 + I make ssure that `alt_weights_by_subfactor` and `subfactr_weight_dict` are in the `session_state` so the user's entries are stored across different button clicks
   
 ### 2.2.2 Functions 
+```python
+def normalize_weights(weight_dict):
+    """function to normalize a dictionary og weights to sum them to 1"""
+    total = sum(weight_dict.values())
+    return {k: v / total for k, v in weight_dict.items()} if total != 0 else {k: 0 for k in weight_dict}
 
+def plot_bar_chart(title, data, y_label):
+    fig, ax = plt.subplots()
+    ax.bar(list(data.keys()), list(data.values()), color="skyblue")
+    ax.set_ylabel(y_label)
+    ax.set_title(title)
+    plt.xticks(rotation=45)
+    st.pyplot(fig)
 
+def plot_final_scores_bar_chart(title, data):
+    fig, ax = plt.subplots()
+    ax.bar(list(data.keys()), list(data.values()), color=["orange", "green"])
+    ax.set_ylabel("Overall Score")
+    ax.set_title(title)
+    plt.xticks(rotation=0)
+    st.pyplot(fig)
+```
+- `normalize_weights()` sum all unnormalized weights and divides each weight by that sum, so the tolal is 1 
+- functions to plot bar charts
+
+```python
+def compare_item_against_reference(item,reference,slider_label="Magnitude (1=equal, up to 9)",radio_question="Which is bigger?",radio_options=None,slider_default=1,radio_key="",slider_key=""):
+    """
+    this function implement the comparison of one item against a reference using a radio and slider input.
+    Returns a weight based on the comparison.
+    """
+    if radio_options is None:
+        radio_options = [f"{item} is bigger", "Equal", f"{reference} is bigger"]
+    side = st.radio(radio_question, options=radio_options, index=1, key=radio_key)
+    slider_value = st.slider(slider_label, 1, 9, slider_default, 1, key=slider_key)
+    if side == "Equal" or slider_value == 1:
+        return 1.0
+    elif side.startswith(item):
+        return float(slider_value)
+    else:
+        return 1.0 / float(slider_value)
+```
+- this function implemente the streamlit components (radio, slider) to get a single ratio for item vs. reference
+
+```python
+def compute_comparison_weights(items, reference, key_prefix, radio_question="Which is bigger?"):
+    """
+    compute the unnormalized weights based on user comparisons
+    """
+    weights = {reference: 1.0}
+    for item in items:
+        if item == reference:
+            continue
+        radio_key = f"{key_prefix}_radio_{item}"
+        slider_key = f"{key_prefix}_slider_{item}"
+        weight = compare_item_against_reference(
+            item,
+            reference,
+            radio_question=radio_question,
+            radio_key=radio_key,
+            slider_key=slider_key
+        )
+        weights[item] = weight
+    return weights
+```
+- this function, for each group, the reference is picked and unnormalized weights for the rest
 ### 2.2.3 Main app flow 
 
 ## 3. Results Interpretation
