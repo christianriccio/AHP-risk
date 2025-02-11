@@ -145,6 +145,9 @@ def main():
                         alt_node = f"{sf_node}_{alt}"
                         dot.node(alt_node, alt)
                         dot.edge(sf_node, alt_node)
+        dot.graph_attr['size'] = '10,8'
+        dot.graph_attr['rankdir'] = 'LR' 
+        dot.node_attr['shape'] = 'box'
         st.graphviz_chart(dot)
 
     # --- Step 6
@@ -214,7 +217,7 @@ def main():
     if len(alternatives_list) < 2:
         st.warning("At least 2 alternatives are required for pairwise comparisons.")
     else:
-        # Iterate over each factor and its subfactors 
+        # Iterate over each factor and its subfactors
         for factor in factors_list:
             sf_list = subfactor_dict.get(factor, [])
             if not sf_list:
@@ -276,4 +279,3 @@ def main():
 if __name__ == "__main__":
 
     main()
-
